@@ -15,28 +15,27 @@ else:
 
 prod_cons_imprt = importlib.__import__(prod_cons_mdl, globals(), locals(), [], 0)
 
-class TestProdConsTestSync(unittest.TestCase):
+def basic_producer(prod_cons,times=100):
+    prod_values = []
+    for i in range(0,times):
+        prod_cons.put(i)
+        prod_values.append(i)
 
-    def __basic_producer(self, prod_cons,times=100):
-        prod_values = []
-        for i in range(0,times):
-            prod_cons.put(i)
-            prod_values.append(i)
+    return prod_values
 
-        return prod_values
+def basic_consumer(prod_cons,times=100):
+    cons_values = []
+    for i in range(0,times):
+        cons_values.append(prod_cons.get())
         
+    return cons_values
 
-    def __basic_consumer(self, prod_cons,times=100):
-        cons_values = []
-        for i in range(0,times):
-            cons_values.append(prod_cons.get())
-
-        return cons_values
+class TestProdConsTestSync(unittest.TestCase):
     
     def test_prod_cons_all(self):
         prod_cons = prod_cons_imprt.GenProdCons()
-        prod_thr = Thread(target=self.__basic_producer, args=(prod_cons, 100))
-        cons_thr = Thread(target=self.__basic_consumer, args=(prod_cons, 100))
+        prod_thr = Thread(target=basic_producer,args=(prod_cons,100))
+        cons_thr = Thread(target=basic_consumer,args=(prod_cons,100))
         prod_thr.start()
         cons_thr.start()
         prod_values = prod_thr.join()
