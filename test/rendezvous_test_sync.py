@@ -3,10 +3,10 @@
 import os
 import unittest
 import importlib
-import threading
+from threading import Thread
 
 expected_module = 'RENDEZVOUSMODULE'
-default_module = 'pysyn'
+default_module = 'pysync'
 
 if expected_module in os.environ:
     rendezvous_mdl = os.environ[expected_module]
@@ -25,9 +25,9 @@ class TestProdConsTestSync(unittest.TestCase):
         val_1 = 1
         val_2 = 2
         thread_1 = Thread(target=__thread, args=(val_1,))
-        thread_2 = Thread(target=__thread, argsa(val_2,))
-        thread_1.run()
-        thread_2.run()
+        thread_2 = Thread(target=__thread, args=(val_2,))
+        thread_1.start()
+        thread_2.start()
         ret_thr_1 = thread_1.join()
         ret_thr_2 = thread_2.join()
         
