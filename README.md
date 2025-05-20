@@ -120,4 +120,14 @@ python3 cma.py --memmap .\resources\memmap\memmap_1.txt --reqs .\resources\reqs\
 python cma.py --memmap .\resources\memmap\memmap_1.txt --reqs .\resources\reqs\req_1.txt
 ```
 
+
+
 The previous execution executes all algorithms you can change to execute different algorithm.
+
+
+
+
+ $env:PYTHONPATH = "$env:PYTHONPATH;C:\Users\JUAN GARZON\Desktop\Semestre 2025-1\SO\st0257_prog_lab_2025_1"
+
+python -m unittest prod_cons_test_sync.py
+
